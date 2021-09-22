@@ -16,6 +16,7 @@ namespace UserRegistrationandCRUD.API.Mapping
             opt => opt.MapFrom(src => src.Email));
 
             CreateMap<UserCore, UserModelView>();
+            CreateMap<UserUpdate, UserCore>().ReverseMap();
         }
 
     }

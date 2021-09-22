@@ -71,11 +71,14 @@ namespace UserRegistrationandCRUD.API.Controllers
             return Ok(id);
         }
 
-        public async Task<ActionResult> Update(HomeworkCreate homework)
+
+        [HttpPost("Update")]
+        [Authorize]
+        public async Task<ActionResult> Update(UserUpdate userupdate)
         {
-            if (homework is null)
+            if (userupdate is null)
             {
-                throw new ArgumentNullException(nameof(homework));
+                throw new ArgumentNullException(nameof(userupdate));
             }
 
             //var homeworkcore = new Core.Entites.Homework
@@ -87,9 +90,9 @@ namespace UserRegistrationandCRUD.API.Controllers
 
             //};
 
-            var homeworkcore = _mapper.Map<Core.Entites.Homework>(homework);
+            var usercore = _mapper.Map<Core.Entities.UserCore>(userupdate);
 
-            var result = await _homeworkService.Update(homeworkcore);
+            var result = await _userService.Update(usercore);
 
             return Ok(result);
 
@@ -106,7 +109,7 @@ namespace UserRegistrationandCRUD.API.Controllers
             var usersucces = await _userManager.FindByNameAsync(user.Email);
             if (usersucces != null)
             {
-                var signinresult = await _signInManager.PasswordSignInAsync(usersucces, user.Password, false, false);
+                var signinresult = await _signInManager.PasswordSignInAsync(usersucces, user.Password, true, false);
 
                 if (signinresult.Succeeded)
                 {
@@ -138,7 +141,7 @@ namespace UserRegistrationandCRUD.API.Controllers
 
                 if (res.Succeeded)
                 {
-                    var signinresult = await _signInManager.PasswordSignInAsync(useridentity, user.Password, false, false);
+                    var signinresult = await _signInManager.PasswordSignInAsync(useridentity, user.Password, true, false);
                     if (signinresult.Succeeded)
                     {
                         return Ok(user);

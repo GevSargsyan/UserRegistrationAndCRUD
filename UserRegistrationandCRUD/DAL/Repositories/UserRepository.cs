@@ -63,9 +63,17 @@ namespace DAL.Repositories
 
         }
 
-        public Task<int> Update(UserCore homework)
+        public async Task<int> Update(UserCore user)
         {
-            throw new NotImplementedException();
+            var userentity = _mapper.Map<DAL.Entities.UserDB>(user);
+            var userforupdate = await _context.Users.FirstOrDefaultAsync(x=>x.Id == user.Id);
+            if (userforupdate != null)
+            {
+                userforupdate.FirstName = userentity.FirstName;
+                await _context.SaveChangesAsync();
+                return userforupdate.Id;
+            };
+            return 0;
         }
 
     }

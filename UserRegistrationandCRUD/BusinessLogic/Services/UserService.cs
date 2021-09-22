@@ -44,9 +44,9 @@ namespace BusinessLogic.Services
             return await _userRepository.Get();
         }
 
-        public Task<int> Update(UserCore homework)
+        public async Task<int> Update(UserCore userCore)
         {
-            throw new NotImplementedException();
+            return await _userRepository.Update(userCore);
         }
     }
 }

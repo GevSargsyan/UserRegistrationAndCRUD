@@ -12,7 +12,7 @@ namespace DAL.Mapping
     {
         public DataAccessMapingProfile()
         {
-            CreateMap<UserDB, Core.Entities.UserCore>();
+            CreateMap<UserDB, Core.Entities.UserCore>().ReverseMap();
 
         }
         
