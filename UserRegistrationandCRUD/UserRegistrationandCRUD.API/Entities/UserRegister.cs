@@ -10,6 +10,8 @@ namespace UserRegistrationandCRUD.API.Entities
     public class UserRegister
     {
         [Required]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

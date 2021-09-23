@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserRegistrationandCRUD.API.Entities
+namespace UserRegistrationandCRUD.BusinessLogic.Entities
 {
     public class UserUpdate
     {

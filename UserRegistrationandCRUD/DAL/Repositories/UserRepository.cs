@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Core.Entities;
 using Core.Repositories;
+using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserRegistrationandCRUD.DAL.Entities;
 
 namespace DAL.Repositories
 {
@@ -63,18 +65,19 @@ namespace DAL.Repositories
 
         }
 
-        public async Task<int> Update(UserCore user)
+  
+
+        public async Task<int> Update(UserRegistrationandCRUD.Core.Entities.UserUpdate user)
         {
-            var userentity = _mapper.Map<DAL.Entities.UserDB>(user);
-            var userforupdate = await _context.Users.FirstOrDefaultAsync(x=>x.Id == user.Id);
+            var userforupdate = await _context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
             if (userforupdate != null)
             {
-                userforupdate.FirstName = userentity.FirstName;
+               var userupd = _mapper.Map<UserDB>(user);
+                _context.Update(userupd);
                 await _context.SaveChangesAsync();
                 return userforupdate.Id;
             };
             return 0;
         }
-
     }
 }

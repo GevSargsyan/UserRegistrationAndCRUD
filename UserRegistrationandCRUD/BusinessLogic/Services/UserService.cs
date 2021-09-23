@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserRegistrationandCRUD.BusinessLogic.Entities;
 
 namespace BusinessLogic.Services
 {
@@ -31,10 +32,7 @@ namespace BusinessLogic.Services
 
         public async Task<UserCore> Get(int userid)
         {
-            if (userid == default(int))
-            {
-                throw new ArgumentException(nameof(userid));
-            }
+           
 
             return await _userRepository.Get(userid);
         }
@@ -44,7 +42,8 @@ namespace BusinessLogic.Services
             return await _userRepository.Get();
         }
 
-        public async Task<int> Update(UserCore userCore)
+
+        public async Task<int> Update(UserRegistrationandCRUD.Core.Entities.UserUpdate userCore)
         {
             return await _userRepository.Update(userCore);
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserRegistrationandCRUD.DAL.Entities;
 
 namespace DAL.Mapping
 {
@@ -13,6 +14,7 @@ namespace DAL.Mapping
         public DataAccessMapingProfile()
         {
             CreateMap<UserDB, Core.Entities.UserCore>().ReverseMap();
+            CreateMap<UserUpdate, UserDB>().ReverseMap();
 
         }
         

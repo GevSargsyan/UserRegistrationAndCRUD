@@ -17,6 +17,7 @@ namespace UserRegistrationandCRUD.API.Mapping
 
             CreateMap<UserCore, UserModelView>();
             CreateMap<UserUpdate, UserCore>().ReverseMap();
+            CreateMap<UserUpdate, Core.Entities.UserUpdate>().ReverseMap();
         }
 
     }

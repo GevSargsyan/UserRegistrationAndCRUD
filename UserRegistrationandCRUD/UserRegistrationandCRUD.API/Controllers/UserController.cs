@@ -51,12 +51,9 @@ namespace UserRegistrationandCRUD.API.Controllers
         {
             var result = await _userService.Get(id);
             var apiuser = _mapper.Map<UserModelView>(result);
-            if (apiuser != null)
-            {
-                return Ok(apiuser);
 
-            }
-            throw new Exception("Null");
+            return Ok(apiuser);
+
         }
 
         [HttpDelete]
@@ -74,25 +71,25 @@ namespace UserRegistrationandCRUD.API.Controllers
 
         [HttpPost("Update")]
         [Authorize]
-        public async Task<ActionResult> Update(UserUpdate userupdate)
+        public async Task<ActionResult> Update(Core.Entities.UserUpdate userupdate)
         {
             if (userupdate is null)
             {
                 throw new ArgumentNullException(nameof(userupdate));
             }
 
-            //var homeworkcore = new Core.Entites.Homework
+            //var Usercore = new Core.Entites.User
             //{
-            //    Id = homework.Id,
-            //    Title = homework.Title,
-            //    Description = homework.Description,
-            //    Link = homework.Link
+            //    Id = User.Id,
+            //    Title = User.Title,
+            //    Description = User.Description,
+            //    Link = User.Link
 
             //};
 
-            var usercore = _mapper.Map<Core.Entities.UserCore>(userupdate);
+            //var usercore = _mapper.Map<Core.Entities.UserCore>(userupdate);
 
-            var result = await _userService.Update(usercore);
+            var result = await _userService.Update(userupdate);
 
             return Ok(result);
 
@@ -104,7 +101,7 @@ namespace UserRegistrationandCRUD.API.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromBody] UserLogin user)
         {
-           // var user = _mapper.Map<IdentityUser>(user);
+            // var user = _mapper.Map<IdentityUser>(user);
 
             var usersucces = await _userManager.FindByNameAsync(user.Email);
             if (usersucces != null)
@@ -113,7 +110,7 @@ namespace UserRegistrationandCRUD.API.Controllers
 
                 if (signinresult.Succeeded)
                 {
-                    return Ok();
+                    return Ok($"Welcome {usersucces.FirstName}-{User.Identity.Name}-{User.Identity.IsAuthenticated}");
                 }
 
             }
@@ -131,7 +128,6 @@ namespace UserRegistrationandCRUD.API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegister user)
         {
-          
 
             if (ModelState.IsValid)
             {
@@ -147,10 +143,10 @@ namespace UserRegistrationandCRUD.API.Controllers
                         return Ok(user);
                     }
                 }
-                return BadRequest();
+                return BadRequest("Registration Failed");
 
             }
-            return Ok();
+            return BadRequest("Registration Failed");
         }
     }
 }

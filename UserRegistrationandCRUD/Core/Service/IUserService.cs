@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserRegistrationandCRUD.Core.Entities;
 
 namespace Core.Service
 {
     public interface IUserService
     {
-        Task<int> Delete(int homeworkId);
-        Task<UserCore> Get(int homeworkId);
+        Task<int> Delete(int userId);
+        Task<UserCore> Get(int userId);
         Task<List<UserCore>> Get();
 
-        Task<int> Update(UserCore homework);
+        Task<int> Update(UserUpdate user);
     }
 }
